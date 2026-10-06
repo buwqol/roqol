@@ -1,8 +1,8 @@
 CC = gcc
 
 CFLAGS = -Wall -Wextra -std=c99 \
-	-DROQOL_NAND_ONLY
-	# -DROQOL_LOGICAL_NAND
+-DROQOL_NAND_ONLY
+#-DROQOL_LOGICAL_PRIMITIVES
 
 OUT = ../Binaries/roqol8
 
