@@ -1,7 +1,9 @@
 #ifndef ROQOL_BITS_H
 #define ROQOL_BITS_H
 typedef _Bool tBit;
-static inline tBit NAND(tBit inA, tBit inB)
+#define tBit_High ((tBit)1U)
+#define tBit_Low ((tBit)0U)
+static inline tBit tBit_Nand(tBit inA, tBit inB)
 {
 #ifdef ROQOL_LOGICAL_PRIMITIVES
 	return !(inA && inB); /* Would binary comparisons and be faster here? No idea. */
@@ -9,18 +11,18 @@ static inline tBit NAND(tBit inA, tBit inB)
 	return !(inA & inB);
 #endif/*ROQOL_LOGICAL_PRIMITIVES*/
 }
-static inline tBit NOT(tBit in)
+static inline tBit tBit_Not(tBit in)
 {
 #ifdef ROQOL_NAND_ONLY
-	return NAND(in, in);
+	return tBit_Nand(in, in);
 #else
 	return !in;
 #endif/*ROQOL_NAND_ONLY*/
 }
-static inline tBit AND(tBit inA, tBit inB)
+static inline tBit tBit_And(tBit inA, tBit inB)
 {
 #ifdef ROQOL_NAND_ONLY
-	return NOT(NAND(inA, inB));
+	return tBit_Not(tBit_Nand(inA, inB));
 #else
 #ifdef ROQOL_LOGICAL_PRIMITIVES
 	return inA && inB;
@@ -29,10 +31,10 @@ static inline tBit AND(tBit inA, tBit inB)
 #endif/*ROQOL_LOGICAL_PRIMITIVES*/
 #endif/*ROQOL_NAND_ONLY*/
 }
-static inline tBit OR(tBit inA, tBit inB)
+static inline tBit tBit_Or(tBit inA, tBit inB)
 {
 #ifdef ROQOL_NAND_ONLY
-	return NAND(NOT(inA), NOT(inB));
+	return tBit_Nand(tBit_Not(inA), tBit_Not(inB));
 #else
 #ifdef ROQOL_LOGICAL_PRIMITIVES
 	return inA || inB;
@@ -41,10 +43,10 @@ static inline tBit OR(tBit inA, tBit inB)
 #endif/*ROQOL_LOGICAL_PRIMITIVES*/
 #endif/*ROQOL_NAND_ONLY*/
 }
-static inline tBit NOR(tBit inA, tBit inB)
+static inline tBit tBit_Nor(tBit inA, tBit inB)
 {
 #ifdef ROQOL_NAND_ONLY
-	return NOT(OR(inA, inB));
+	return tBit_Not(tBit_Or(inA, inB));
 #else
 #ifdef ROQOL_LOGICAL_PRIMITIVES
 	return !(inA || inB);
@@ -53,21 +55,29 @@ static inline tBit NOR(tBit inA, tBit inB)
 #endif/*ROQOL_LOGICAL_PRIMITIVES*/
 #endif/*ROQOL_NAND_ONLY*/
 }
-static inline tBit XOR(tBit inA, tBit inB)
+static inline tBit tBit_Xor(tBit inA, tBit inB)
 {
 #ifdef ROQOL_NAND_ONLY
-	return NOR(AND(inA, inB), NOR(inA, inB));
+	return tBit_Nor(tBit_And(inA, inB), tBit_Nor(inA, inB));
 #else
 	return inA ^ inB;
 #endif/*ROQOL_NAND_ONLY*/
 }
-static inline tBit XNOR(tBit inA, tBit inB)
+static inline tBit tBit_Xnor(tBit inA, tBit inB)
 {
 #ifdef ROQOL_NAND_ONLY
-	return OR(AND(inA, inB), NOR(inA, inB));;
+	return tBit_Or(tBit_And(inA, inB), tBit_Nor(inA, inB));;
 #else
 	return !(inA ^ inB);
 #endif/*ROQOL_NAND_ONLY*/
+}
+static inline tBit tBit_On(void)
+{
+	return tBit_High;
+}
+static inline tBit tBit_Off(void)
+{
+	return tBit_Low;
 }
 //#ifdef ROQOL_LOGICAL_PRIMITIVES
 //#undef ROQOL_LOGICAL_PRIMITIVES

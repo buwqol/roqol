@@ -2,50 +2,50 @@
 #include "Test.h"
 void test_NAND(void)
 {
-	TEST(NAND(0, 0) == 1);
-	TEST(NAND(0, 1) == 1);
-	TEST(NAND(1, 0) == 1);
-	TEST(NAND(1, 1) == 0);
+	TEST(tBit_Nand(tBit_Low, tBit_Low) == tBit_High);
+	TEST(tBit_Nand(tBit_Low, tBit_High) == tBit_High);
+	TEST(tBit_Nand(tBit_High, tBit_Low) == tBit_High);
+	TEST(tBit_Nand(tBit_High, tBit_High) == tBit_Low);
 }
 void test_AND(void)
 {
-	TEST(AND(0, 0) == 0);
-	TEST(AND(0, 1) == 0);
-	TEST(AND(1, 0) == 0);
-	TEST(AND(1, 1) == 1);
+	TEST(tBit_And(tBit_Low, tBit_Low) == tBit_Low);
+	TEST(tBit_And(tBit_Low, tBit_High) == tBit_Low);
+	TEST(tBit_And(tBit_High, tBit_Low) == tBit_Low);
+	TEST(tBit_And(tBit_High, tBit_High) == tBit_High);
 }
 void test_OR(void)
 {
-	TEST(OR(0, 0) == 0);
-	TEST(OR(0, 1) == 1);
-	TEST(OR(1, 0) == 1);
-	TEST(OR(1, 1) == 1);
+	TEST(tBit_Or(tBit_Low, tBit_Low) == tBit_Low);
+	TEST(tBit_Or(tBit_Low, tBit_High) == tBit_High);
+	TEST(tBit_Or(tBit_High, tBit_Low) == tBit_High);
+	TEST(tBit_Or(tBit_High, tBit_High) == tBit_High);
 }
 void test_NOR(void)
 {
-	TEST(NOR(0, 0) == 1);
-	TEST(NOR(0, 1) == 0);
-	TEST(NOR(1, 0) == 0);
-	TEST(NOR(1, 1) == 0);
+	TEST(tBit_Nor(tBit_Low, tBit_Low) == tBit_High);
+	TEST(tBit_Nor(tBit_Low, tBit_High) == tBit_Low);
+	TEST(tBit_Nor(tBit_High, tBit_Low) == tBit_Low);
+	TEST(tBit_Nor(tBit_High, tBit_High) == tBit_Low);
 }
 void test_XOR(void)
 {
-	TEST(XOR(0, 0) == 0);
-	TEST(XOR(0, 1) == 1);
-	TEST(XOR(1, 0) == 1);
-	TEST(XOR(1, 1) == 0);
+	TEST(tBit_Xor(tBit_Low, tBit_Low) == tBit_Low);
+	TEST(tBit_Xor(tBit_Low, tBit_High) == tBit_High);
+	TEST(tBit_Xor(tBit_High, tBit_Low) == tBit_High);
+	TEST(tBit_Xor(tBit_High, tBit_High) == tBit_Low);
 }
 void test_XNOR(void)
 {
-	TEST(XNOR(0, 0) == 1);
-	TEST(XNOR(0, 1) == 0);
-	TEST(XNOR(1, 0) == 0);
-	TEST(XNOR(1, 1) == 1);
+	TEST(tBit_Xnor(tBit_Low, tBit_Low) == tBit_High);
+	TEST(tBit_Xnor(tBit_Low, tBit_High) == tBit_Low);
+	TEST(tBit_Xnor(tBit_High, tBit_Low) == tBit_Low);
+	TEST(tBit_Xnor(tBit_High, tBit_High) == tBit_High);
 }
 void test_NOT(void)
 {
-	TEST(NOT(0) == 1);
-	TEST(NOT(1) == 0);
+	TEST(tBit_Not(tBit_Low) == tBit_High);
+	TEST(tBit_Not(tBit_High) == tBit_Low);
 }
 int main(void)
 {
